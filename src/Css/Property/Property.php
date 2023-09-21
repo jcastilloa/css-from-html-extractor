@@ -39,7 +39,7 @@ final class Property
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -49,7 +49,7 @@ final class Property
      *
      * @return string
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }
@@ -59,7 +59,7 @@ final class Property
      *
      * @return Specificity
      */
-    public function getOriginalSpecificity()
+    public function getOriginalSpecificity(): ?Specificity
     {
         return $this->originalSpecificity;
     }
@@ -69,7 +69,7 @@ final class Property
      *
      * @return bool
      */
-    public function isImportant()
+    public function isImportant(): bool
     {
         return (stripos($this->value, '!important') !== false);
     }
@@ -79,7 +79,7 @@ final class Property
      *
      * @return string
      */
-    public function toString()
+    public function toString(): string
     {
         return sprintf(
             '%1$s: %2$s;',

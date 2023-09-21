@@ -5,10 +5,10 @@ namespace CSSFromHTMLExtractor\Twig;
 use CSSFromHTMLExtractor\CssFromHTMLExtractor;
 use CSSFromHTMLExtractor\Twig\TokenParsers\FoldTokenParser;
 use Doctrine\Common\Cache\Cache;
-use Twig_Extension;
-use Twig_ExtensionInterface;
+use Twig\Extension\AbstractExtension;
 
-class Extension extends Twig_Extension implements Twig_ExtensionInterface
+
+class Extension extends AbstractExtension implements \Twig\Extension\ExtensionInterface
 {
 
     /** @var CssFromHTMLExtractor */
@@ -30,7 +30,7 @@ class Extension extends Twig_Extension implements Twig_ExtensionInterface
         $this->pageSpecificCssService->addBaseRules($sourceCss);
     }
 
-    public function getTokenParsers()
+    public function getTokenParsers(): array
     {
         return [
             new FoldTokenParser(),
@@ -44,17 +44,17 @@ class Extension extends Twig_Extension implements Twig_ExtensionInterface
         return $rawHtml;
     }
 
-    public function hasCriticalHtml()
+    public function hasCriticalHtml(): bool
     {
         return count($this->pageSpecificCssService->getHtmlStore()->getSnippets()) > 0;
     }
 
-    public function getCriticalCss()
+    public function getCriticalCss(): string
     {
         return $this->pageSpecificCssService->getCssStore()->compileStyles();
     }
 
-    public function buildCriticalCssFromSnippets()
+    public function buildCriticalCssFromSnippets(): string
     {
         return $this->pageSpecificCssService->buildExtractedRuleSet();
     }

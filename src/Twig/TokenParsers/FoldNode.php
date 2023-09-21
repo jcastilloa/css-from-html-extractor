@@ -3,18 +3,18 @@
 namespace CSSFromHTMLExtractor\Twig\TokenParsers;
 
 use CSSFromHTMLExtractor\Twig\Extension;
-use Twig_Compiler;
-use Twig_Node;
+use Twig\Compiler;
+use \Twig\Node\Node;
 
-class FoldNode extends Twig_Node
+class FoldNode extends Node
 {
 
-    public function __construct(Twig_Node $body, array $attributes, $lineno, $tag)
+    public function __construct(Node $body, array $attributes, $lineno, $tag)
     {
         parent::__construct(['body' => $body], $attributes, $lineno, $tag);
     }
 
-    public function compile(Twig_Compiler $compiler)
+    public function compile(Compiler $compiler)
     {
         $compiler
             ->addDebugInfo($this)

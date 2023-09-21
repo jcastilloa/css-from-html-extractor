@@ -12,10 +12,11 @@
     }
   ],
   "require": {
-    "php": "^5.5 || ^7 || ^8",
-    "symfony/css-selector": "^2.7|~3.0|~4.0",
-    "twig/twig": "^1.0|^2.0",
-    "doctrine/cache": "^1.7"
+    "php": "^8",
+    "symfony/css-selector": "v6.3.2",
+    "twig/twig": "v3.7.1",
+    "doctrine/cache": "2.2.0",
+    "symfony/cache": "^6.3"
   },
   "autoload": {
     "psr-4": {

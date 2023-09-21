@@ -2,30 +2,25 @@
 
 namespace CSSFromHTMLExtractor\Twig\TokenParsers;
 
-use Twig_Error_Syntax;
-use Twig_Node;
-use Twig_NodeInterface;
-use Twig_Token;
-use Twig_TokenParser;
+use Twig\Error\SyntaxError;
+use Twig\Node\Node;
+use Twig\Token;
+use Twig\TokenParser\AbstractTokenParser;
 
-class FoldTokenParser extends Twig_TokenParser
+class FoldTokenParser extends AbstractTokenParser
 {
 
     /**
-     * Parses a token and returns a node.
-     *
-     * @param Twig_Token $token A Twig_Token instance
-     *
-     * @return Twig_Node A Twig_NodeInterface instance
-     *
-     * @throws Twig_Error_Syntax
+     * @param Token $token
+     * @return Node|FoldNode
+     * @throws SyntaxError
      */
-    public function parse(Twig_Token $token)
+    public function parse(Token $token): Node|FoldNode
     {
         $lineno = $token->getLine();
-        $this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);
+        $this->parser->getStream()->expect(Token::BLOCK_END_TYPE);
         $body = $this->parser->subparse([$this, 'decideFoldEnd'], true);
-        $this->parser->getStream()->expect(Twig_Token::BLOCK_END_TYPE);
+        $this->parser->getStream()->expect(Token::BLOCK_END_TYPE);
         return new FoldNode($body, [], $lineno, $this->getTag());
     }
 
@@ -34,12 +29,12 @@ class FoldTokenParser extends Twig_TokenParser
      *
      * @return string The tag name
      */
-    public function getTag()
+    public function getTag(): string
     {
         return 'fold';
     }
 
-    public function decideFoldEnd(Twig_Token $token)
+    public function decideFoldEnd(Token $token): bool
     {
         return $token->test('endfold');
     }

@@ -5,15 +5,15 @@ namespace CSSFromHTMLExtractor;
 class HtmlStore
 {
     /** @var array Property objects, grouped by selector */
-    private $snippets = [];
+    private array $snippets = [];
 
-    public function addHtmlSnippet($htmlSnippet)
+    public function addHtmlSnippet($htmlSnippet): static
     {
         $this->snippets = array_merge($this->snippets, [$htmlSnippet]);
         return $this;
     }
 
-    public function getSnippets()
+    public function getSnippets(): array
     {
         return $this->snippets;
     }
@@ -21,7 +21,7 @@ class HtmlStore
     /**
      * @return $this
      */
-    public function purge()
+    public function purge(): static
     {
         $this->snippets = [];
 

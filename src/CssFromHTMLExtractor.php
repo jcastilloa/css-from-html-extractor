@@ -2,11 +2,13 @@
 
 namespace CSSFromHTMLExtractor;
 
-use Doctrine\Common\Cache\ArrayCache;
+
 use Doctrine\Common\Cache\Cache;
+use Doctrine\Common\Cache\Psr6\DoctrineProvider;
 use DOMNodeList;
 use DOMXPath;
 use Exception;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\CssSelector\CssSelectorConverter;
 use Symfony\Component\CssSelector\Exception\ExceptionInterface;
 use CSSFromHTMLExtractor\Css\Processor;
@@ -46,16 +48,21 @@ class CssFromHTMLExtractor
      */
     public function __construct(Cache $resultCache = null)
     {
-        if (class_exists('Symfony\Component\CssSelector\CssSelectorConverter')) {
-            $this->cssConverter = new CssSelectorConverter();
-        }
-
         $this->cssStore = new CssStore();
         $this->htmlStore = new HtmlStore();
         $this->processor = new Processor();
         $this->cssConverter = new CssSelectorConverter();
 
-        $this->resultCache = is_null($resultCache) ? new ArrayCache() : $resultCache;
+        if (is_null($resultCache)) {
+
+            $this->resultCache = DoctrineProvider::wrap(
+                new ArrayAdapter()
+            );
+        } else {
+
+            $this->resultCache = $resultCache;
+        }
+
         $this->cachedRules = (array)$this->resultCache->fetch('cachedRules');
     }
 

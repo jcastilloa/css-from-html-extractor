@@ -2,8 +2,8 @@
 
 namespace CSSFromHTMLExtractor\Css\Rule;
 
-use Sabberworm\CSS\OutputFormat;
-use Sabberworm\CSS\Parser;
+//use Sabberworm\CSS\OutputFormat;
+//use Sabberworm\CSS\Parser;
 use Symfony\Component\CssSelector\Node\Specificity;
 use \CSSFromHTMLExtractor\Css\Property\Processor as PropertyProcessor;
 
@@ -16,7 +16,7 @@ class Processor
      *
      * @return array
      */
-    public function splitIntoSeparateMediaQueries($rulesString)
+    public function splitIntoSeparateMediaQueries($rulesString): array
     {
         // Intelligently break up rules, preserving mediaquery context and such
 
@@ -74,7 +74,7 @@ class Processor
      * @param string $string
      * @return string
      */
-    private function cleanup($string)
+    private function cleanup(string $string): string
     {
         $string = str_replace(array("\r", "\n"), '', $string);
         $string = str_replace(array("\t"), ' ', $string);
@@ -95,7 +95,7 @@ class Processor
      * @param int    $originalOrder
      * @return array
      */
-    public function convertToObjects($media, $rule, $originalOrder)
+    public function convertToObjects($media, $rule, $originalOrder): array
     {
         $rule = $this->cleanup($rule);
 
@@ -136,7 +136,7 @@ class Processor
      * @param string $selector
      * @return Specificity
      */
-    public function calculateSpecificityBasedOnASelector($selector)
+    public function calculateSpecificityBasedOnASelector($selector): Specificity
     {
         $idSelectorsPattern = "  \#";
         $classAttributesPseudoClassesSelectorsPattern = "  (\.[\w]+)                     # classes
@@ -178,7 +178,7 @@ class Processor
      *
      * @return Rule[]
      */
-    public function convertArrayToObjects(array $mediaQueryRules, array $objects = array())
+    public function convertArrayToObjects(array $mediaQueryRules, array $objects = array()): array
     {
         foreach ($mediaQueryRules as $order => $ruleSet) {
             foreach (reset($ruleSet) as $rule) {
@@ -197,7 +197,7 @@ class Processor
      * @param  Rule $e1 The first element.
      * @param  Rule $e2 The second element.
      */
-    public static function sortOnSpecificity(Rule $e1, Rule $e2)
+    public static function sortOnSpecificity(Rule $e1, Rule $e2): int
     {
         $e1Specificity = $e1->getSpecificity();
         $value = $e1Specificity->compareTo($e2->getSpecificity());

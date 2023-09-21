@@ -14,7 +14,7 @@ class Processor
      * @param array $existingRules
      * @return Rule[]
      */
-    public function getRules($css, $existingRules = [])
+    public function getRules(string $css, array $existingRules = []): array
     {
         $css = $this->doCleanup($css);
         $rulesProcessor = new RuleProcessor();
@@ -40,7 +40,7 @@ class Processor
      * @param string $html
      * @return string
      */
-    public function getCssFromStyleTags($html)
+    public function getCssFromStyleTags($html): string
     {
         $css = '';
         $matches = array();
@@ -59,7 +59,7 @@ class Processor
      * @param string $css
      * @return string
      */
-    private function doCleanup($css)
+    private function doCleanup($css): string
     {
         // remove charset
         $css = preg_replace('/@charset "[^"]++";/', '', $css);

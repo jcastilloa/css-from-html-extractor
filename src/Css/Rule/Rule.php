@@ -10,25 +10,25 @@ final class Rule
     /**
      * @var string
      */
-    private $selector;
+    private string $selector;
 
     /**
      * @var array
      */
-    private $properties;
+    private array $properties;
 
     /**
      * @var Specificity
      */
-    private $specificity;
+    private Specificity $specificity;
 
     /**
      * @var integer
      */
-    private $order;
+    private int $order;
 
     /** @var string  */
-    private $media;
+    private string $media;
 
     /**
      * Rule constructor.
@@ -39,7 +39,7 @@ final class Rule
      * @param Specificity $specificity
      * @param int $order
      */
-    public function __construct($media, $selector, array $properties, Specificity $specificity, $order)
+    public function __construct(string $media, string $selector, array $properties, Specificity $specificity, int $order)
     {
         $this->media = $media;
         $this->selector = $selector;
@@ -51,7 +51,7 @@ final class Rule
     /**
      * @return string
      */
-    public function getMedia()
+    public function getMedia(): string
     {
         return $this->media;
     }
@@ -62,7 +62,7 @@ final class Rule
      *
      * @return string
      */
-    public function getSelector()
+    public function getSelector(): string
     {
         return $this->selector;
     }
@@ -72,7 +72,7 @@ final class Rule
      *
      * @return array
      */
-    public function getProperties()
+    public function getProperties(): array
     {
         return $this->properties;
     }
@@ -82,7 +82,7 @@ final class Rule
      *
      * @return Specificity
      */
-    public function getSpecificity()
+    public function getSpecificity(): Specificity
     {
         return $this->specificity;
     }
@@ -92,7 +92,7 @@ final class Rule
      *
      * @return int
      */
-    public function getOrder()
+    public function getOrder(): int
     {
         return $this->order;
     }

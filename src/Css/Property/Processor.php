@@ -12,7 +12,7 @@ class Processor
      * @param string $propertiesString
      * @return array
      */
-    public function splitIntoSeparateProperties($propertiesString)
+    public function splitIntoSeparateProperties($propertiesString): array
     {
         $propertiesString = $this->cleanup($propertiesString);
 
@@ -43,7 +43,7 @@ class Processor
      * @param string $string
      * @return mixed|string
      */
-    private function cleanup($string)
+    private function cleanup($string): mixed
     {
         $string = str_replace(array("\r", "\n"), '', $string);
         $string = str_replace(array("\t"), ' ', $string);
@@ -63,7 +63,7 @@ class Processor
      * @param string $property
      * @return Property|null
      */
-    public function convertToObject($property, Specificity $specificity = null)
+    public function convertToObject($property, Specificity $specificity = null): ?Property
     {
         if (strpos($property, ':') === false) {
             return null;
@@ -87,7 +87,7 @@ class Processor
      * @param array $properties
      * @return Property[]
      */
-    public function convertArrayToObjects(array $properties, Specificity $specificity = null)
+    public function convertArrayToObjects(array $properties, Specificity $specificity = null): array
     {
         $objects = array();
 
@@ -109,7 +109,7 @@ class Processor
      * @param array $properties
      * @return string
      */
-    public function buildPropertiesString(array $properties)
+    public function buildPropertiesString(array $properties): string
     {
         $chunks = array();
 
